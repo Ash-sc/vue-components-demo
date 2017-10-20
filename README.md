@@ -1,5 +1,5 @@
 # Vue项目模板
-vue2.x项目模板，使用webpack编译，不包括Node.js服务端部分。
+vue2.x项目模板，使用webpack编译，不包括Node.js服务端部分。
 
 
 # 安装与使用
@@ -21,7 +21,7 @@ $ npm run build
 project
 │   README.md
 │   package.json
-│   .eslintrc
+│   .eslintrc
 │   ...
 └───build  // webpack配置
 │
