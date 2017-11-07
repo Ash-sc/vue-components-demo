@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import loading from './modules/loading'
 import notification from './modules/notification'
-// import createLogger from '../../../src/plugins/logger'
+import popup from './modules/popup'
 
 Vue.use(Vuex)
 
@@ -16,9 +15,8 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    loading,
-    notification
+    notification,
+    popup
   },
   strict: debug
-  // plugins: debug ? [createLogger()] : []
 })

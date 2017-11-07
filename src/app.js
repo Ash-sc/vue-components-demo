@@ -5,6 +5,10 @@ import '@/filters/'
 import router from '@/routes/'
 import App from '@/components/App'
 import store from './store'
+import jnat from 'jnat-get-ui-vue'
+import 'jnat-get-ui-core/dist/theme/default.css'
+import 'jnat-get-ui-core/dist/show/css/show.css'
+import 'jnat-get-ui-core/dist/show/css/layout.css'
 
 // 挂载到 DOM，自此外部就可通过 router.app 访问到根组件
 // router.start(App, '#app')
@@ -14,6 +18,7 @@ new Vue({
   router,
   render: h => h(App)
 })
+Vue.use(jnat)
 
 if (__DEV__) {
   console.info('[当前环境] 开发环境')
@@ -29,7 +34,7 @@ if (__PROD__) {
 /* 处理 less / sass */
 // import '@/assets/less/normalize.less'
 // import '@/assets/scss/normalize.scss'
-// import '@/assets/scss/style.scss'
+import '@/assets/scss/style.scss'
 
 /* 处理 img，小于 10KB 的转为 base64，否则使用 URL */
 // import base64 from '@/assets/img/smaller.png'

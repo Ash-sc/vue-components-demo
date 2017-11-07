@@ -1,7 +1,6 @@
 <template>
   <div>
     <notification></notification>
-  
     <router-view transition="fade" transition-mode="out-in"></router-view>
   </div>
 </template>
@@ -13,15 +12,15 @@ export default {
   // 路由会自动将该组件挂载到 #app 上
   // el: () => '#app',
   
-  components: { Notification },
+  components: { Notification }
 
 
-  created: function() {
-    this.$store.dispatch('newNotification', {
-      type: 'success',
-      content: 'Welcome !!!'
-    })
-  }
+  // created: function() {
+  //   this.$store.dispatch('newNotification', {
+  //     type: 'success',
+  //     content: 'Welcome !!!'
+  //   })
+  // }
 }
 </script>
 

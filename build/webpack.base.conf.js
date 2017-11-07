@@ -43,14 +43,14 @@ module.exports = {
       test: /\.html$/,
       loader: 'html'
     }, {
-      test: /\.(png|jpe?g|gif|svg)$/,
+      test: /\.(png|jpe?g|gif)$/,
       loader: 'url',
       query: {
         limit: 10240, // 10KB 以下使用 base64
         name: 'img/[name]-[hash:6].[ext]'
       }
     }, {
-      test: /\.(woff2?|eot|ttf|otf)$/,
+      test: /\.(woff|woff2|eot|ttf|svg)(\?\S*)?$/,
       loader: 'url-loader?limit=10240&name=fonts/[name]-[hash:6].[ext]'
     }].concat(styleRules.basic)
   },
