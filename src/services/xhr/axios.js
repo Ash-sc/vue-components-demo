@@ -1,6 +1,4 @@
 import axios from 'axios'
-import store from '@/store'
-import * as loadingType from '@/store/types/loadingTypes'
 
 const rootPath = '/api' // 后端 API 根路径
 
@@ -17,20 +15,17 @@ const xhr = ({ method = 'get', url, body = null }) => {
 
   const promise = new Promise((resolve, reject) => {
     const reqPath = rootPath + url + (method === 'get' ? queryString(body) : '')
-    store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: true })
     axios({
       method: method,
       url: reqPath,
       data: body
     }).then(res => {
       const { data } = res
-      store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
       if (!data.success) {
         return reject(data)
       }
       resolve(data.data)
     }).catch(err => {
-      store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
       console.log('request error: %s', err)
     })
   })

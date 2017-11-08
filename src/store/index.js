@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import notification from './modules/notification'
-import popup from './modules/popup'
+import qaManagement from './modules/qaManagement'
 
 Vue.use(Vuex)
 
@@ -16,7 +16,7 @@ export default new Vuex.Store({
   getters,
   modules: {
     notification,
-    popup
+    qaManagement
   },
   strict: debug
 })

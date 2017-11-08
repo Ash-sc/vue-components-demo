@@ -1,5 +1,5 @@
 # Vue项目模板
-vue2.x项目模板，使用webpack编译，不包括Node.js服务端部分。
+vue2.x项目模板，使用webpack编译
 
 
 # 安装与使用

@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "cross-env NODE_ENV=development node build/dev.js",
+    "server": "node ./server/node-app.js",
     "build": "cross-env NODE_ENV=production node build/prod.js"
   },
   "repository": {
@@ -13,6 +14,8 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "es6-shim": "^0.35.2",
     "express": "^4.13.3",
     "lodash": "^4.17.2",

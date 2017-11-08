@@ -5,7 +5,7 @@ export default [
       require(['@/views/'], resolve)
     },
     redirect: to => {
-      return '/login'
+      return '/qa-management'
     }
   }, { 
     path: '/login',
@@ -24,6 +24,9 @@ export default [
         name: 'qa-management',
         component (resolve) {
           require(['@/views/qa/'], resolve)
+        },
+        redirect: to => {
+          return '/qa-management/qa-management-list'
         },
         children: [
           {

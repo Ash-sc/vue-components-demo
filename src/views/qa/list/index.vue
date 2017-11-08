@@ -11,14 +11,22 @@
       </div>
       <gt-table
       :columns="tableOptions.columns"
-      :data="tableData"
+      :data="tableData.data"
       ></gt-table>
+      <gt-pagination
+        :page="tableData.pageable.page"
+        :total="tableData.total"
+        :size="tableData.pageable.size"
+        v-on:page-change="changePage"
+      ></gt-pagination>
     </div>
   </div>
 </template>
 <script>
 import moment from 'moment'
-import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import * as types from '@/store/types/qaManagementTypes'
+
 moment.locale('zh-cn')
 
 export default {
@@ -40,41 +48,38 @@ export default {
         }, {
           label: '操作人员',
           field: 'operator'
-        }, {
-          label: '操作',
-          component: Vue.component('test-component', {
-            template: '<div>A custom component!</div>'
-          })
         }
       ]
-    },
-    tableData: [
-      {
-        name: '问题11111111',
-        category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-        lastUpdateTime: 1504921112000,
-        operator: '林时工'
-      }, {
-        name: '问题22222222',
-        category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-        lastUpdateTime: 1509962512000,
-        operator: '林时工'
-      }, {
-        name: '问题3333333',
-        category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-        lastUpdateTime: 1506962512000,
-        operator: '林时工'
-      }
-    ]
+    }
   }),
+
+  computed: {
+    ...mapGetters({
+      tableData: 'qaList'
+    })
+  },
 
 
   created: function() {
+    if (!this.$store.state.qaManagement.qaCategoryData.length) {
+      this.$store.dispatch(types.GET_QA_CATEGORY_LIST)
+    }
+    this.$store.dispatch(types.GET_QA_LIST, {
+      page: 1,
+      size: 20
+    })
   },
 
   methods: {
     newQaLink: function() {
       this.$router.push('/qa-management/new-qa')
+    },
+
+    changePage: function(page) {
+      this.$store.dispatch(types.GET_QA_LIST, {
+        page,
+        size: 20
+      })
     }
   }
 }

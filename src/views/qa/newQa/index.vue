@@ -13,23 +13,21 @@
             :val="firstC"
             :opts="{ needEmpty: true, emptyLabel: '请选择一级分类' }"
           >
-            <li @click="newCategoryOrKind('first')">新增一级分类</li>
           </selector>
           <selector
-            :data-list="secondCList()"
+            :data-list="secondCList"
             v-on:val-change="val => categoryChange(val, 'secondC')"
             :val="secondC"
             :opts="{ needEmpty: true, emptyLabel: '请选择二级分类' }"
           >
-            <li>新增二级分类</li>
           </selector>
           <selector
-            :data-list="thirdCList()"
+            :data-list="thirdCList"
             v-on:val-change="val => categoryChange(val, 'thirdC')"
             :val="thirdC"
             :opts="{ needEmpty: true, emptyLabel: '请选择三级分类' }"
           >
-            <li>新增三级分类</li>
+            <li v-if="secondC" @click="newCategoryOrKind('category')">+ 新增三级分类</li>
           </selector>
         </div>
 
@@ -41,7 +39,7 @@
             :val="questionKind"
             :opts="{ needEmpty: true, emptyLabel: '请选择归属分类' }"
           >
-            <li>新增归属</li>
+            <li v-if="secondC" @click="newCategoryOrKind('kind')">+ 新增归属</li>
           </selector>
         </div>
 
@@ -66,17 +64,23 @@
         </div>
       </div>
     </div>
-    <popup :popup-name="'new-category-or-kind'">
-      <div>123123123123</div>
+
+    <popup ref="categoryDialog">
+      <new-category :opts="categoryOrKindOpts"></new-category>
     </popup>
+
   </div>
 </template>
 <script>
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import find from 'lodash/find'
 import Selector from '@/components/Selector/'
 import VueHtml5Editor from 'vue-html5-editor'
 import Popup from '@/components/Popup/'
+import NewCategory from './newCategory'
+import * as types from '@/store/types/qaManagementTypes'
+
 
 Vue.use(VueHtml5Editor, {
   showModuleName: false,
@@ -106,46 +110,11 @@ Vue.use(VueHtml5Editor, {
 
 export default {
 
-  components: { Selector, Popup },
+  components: { Selector, Popup, NewCategory },
 
 
   data: () => ({
-    qaOptionsData: [
-      {
-        id: 100000,
-        label: '个推推送',
-        children: [
-          {
-            id: 100100,
-            label: '客户端',
-            children: [
-              {
-                id: 100101,
-                label: 'iOS',
-                categories: ['集成', '推送']
-              }, {
-                id: 100102,
-                label: '安卓',
-                categories: ['集成2', '推送2']
-              }
-            ]
-          }, {
-            id: 100200,
-            label: '服务端',
-            children: [
-              {
-                id: 100201,
-                label: 'java'
-              }, {
-                id: 100202,
-                label: 'node',
-                categories: ['node版本']
-              }
-            ]
-          }
-        ]
-      }
-    ],
+    categoryOrKindOpts: {},
     firstC: '',
     secondC: '',
     thirdC: '',
@@ -155,13 +124,32 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      qaOptionsData: 'qaCategoryData'
+    }),
+
+    secondCList() {
+      if (!this.firstC) {
+        return []
+      }
+      return find(this.qaOptionsData, { id: this.firstC }).children || []
+    },
+
+    thirdCList() {
+      if (!this.secondC) {
+        return []
+      }
+      return find(this.secondCList, { id: this.secondC }).children || []
+    },
+
     questionCategory() {
       return this.thirdC || this.secondC || this.firstC
     },
+
     kindData() {
       let categories = []
-      const secondCList = this.secondCList()
-      const thirdCList = this.thirdCList()
+      const secondCList = this.secondCList
+      const thirdCList = this.thirdCList
       if (thirdCList.length && this.thirdC) {
         categories = find(thirdCList, { id: this.thirdC }).categories || []
       } else if (secondCList.length && this.secondC && !thirdCList.length) {
@@ -176,30 +164,18 @@ export default {
       this.secondC = ''
       this.questionKind = ''
     },
+
     secondC: function(val) {
       this.thirdC = ''
       this.questionKind = ''
     },
+     
     thirdC: function() {
       this.questionKind = ''
     }
   },
 
   methods: {
-    secondCList: function() {
-      if (!this.firstC) {
-        return []
-      }
-      return find(this.qaOptionsData, { id: this.firstC }).children
-    },
-
-    thirdCList: function() {
-      if (!this.secondC) {
-        return []
-      }
-      return find(this.secondCList(), { id: this.secondC }).children
-    },
-
     categoryChange: function(val, type) {
       this[type] = val
     },
@@ -212,9 +188,17 @@ export default {
       this.questionAnswer = answer
     },
 
-    newCategoryOrKind: function() {
-      this.$store.commit('newPopup', { name: 'new-category-or-kind' })
-      console.log(12312)
+    newCategoryOrKind: function(type) {
+      this.$refs.categoryDialog.show()
+      const categoryOrKindOpts = {
+        type
+      }
+      if (type === 'kind') {
+        categoryOrKindOpts.id = this.questionCategory
+      } else {
+        categoryOrKindOpts.id = this.secondC
+      }
+      this.categoryOrKindOpts = categoryOrKindOpts
     },
 
     submitQuestion: function() {
@@ -224,6 +208,12 @@ export default {
         name: this.questionName,
         answer: this.questionAnswer
       })
+    }
+  },
+
+  created: function() {
+    if (!this.qaOptionsData.length) {
+      this.$store.dispatch(types.GET_QA_CATEGORY_LIST)
     }
   }
 }
