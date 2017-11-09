@@ -1,41 +1,28 @@
-const express = require('express')
-const router = express.Router()
+var express = require('express')
+var router = express.Router()
+var qaManagementModel = require('../models/qaManagement')
 
 // 获取常见问题列表
-router.get('/qaList', (req, res) => {
-  console.log(req.query)
-  res.status(200).json({
-    success: true,
-    data: {
-      data: [
-        {
-          name: '问题11111111',
-          category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-          lastUpdateTime: 1504921112000,
-          operator: '林时工'
-        }, {
-          name: '问题22222222',
-          category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-          lastUpdateTime: 1509962512000,
-          operator: '林时工'
-        }, {
-          name: '问题3333333',
-          category: '开发者常见问题 > 个推推送 > 客户端 > iOS > 集成',
-          lastUpdateTime: 1506962512000,
-          operator: '林时工'
+router.get('/qaList', function(req, res) {
+  qaManagementModel
+    .qaList(req.query)
+    .then((data) => {
+      res.status(200).json({
+        success: true,
+        data: {
+          total: data.total,
+          data: data.data,
+          pageable: {
+            page: parseInt(req.query.page, 10),
+            size: parseInt(req.query.size, 10)
+          }
         }
-      ],
-      pageable: {
-        page: 1,
-        size: 20
-      },
-      total: 100
-    }
-  })
+      })
+    })
 })
 
 // 获取常见问题分类信息
-router.get('/qaCategoryList', (req, res) => {
+router.get('/qaCategoryList', function(req, res) {
   res.status(200).json({
     success: true,
     data: [
@@ -45,7 +32,16 @@ router.get('/qaCategoryList', (req, res) => {
         children: [
           {
             id: 100100,
-            label: '客户端'
+            label: '客户端',
+            children: [
+              {
+                id: 100101,
+                label: 'iOS'
+              }, {
+                id: 100102,
+                label: '安卓'
+              }
+            ]
           }, {
             id: 100200,
             label: '服务端'

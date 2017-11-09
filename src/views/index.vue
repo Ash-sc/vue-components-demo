@@ -76,14 +76,15 @@ export default {
     }
   }
 
-  .left-menu .gt-bar-wrap .gt-bar {
-    padding-top: 65px;
-  }
-
   .main-content {
     position: relative;
     top: 65px;
     margin-left: 170px;
   }
+}
+
+// menu
+.gt-menu .gt--open+.gt-menu__sub {
+  height: auto!important;
 }
 </style>

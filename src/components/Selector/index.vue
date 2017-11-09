@@ -99,7 +99,7 @@ export default {
       width: 100%;
       border: 1px solid #ddd;
       border-radius: 3px;
-      margin-top: 1px;
+      top: 31px;
       background-color: #fff;
       z-index: 1;
     }

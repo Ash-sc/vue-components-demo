@@ -34,7 +34,7 @@ export default {
   width: 100%;
   height: 100%;
   top: -600px;
-  left: 0;
+  left: 100%;
   z-index: 1025;
   opacity: 0;
   transition: opacity .4s ease-in-out;
@@ -111,6 +111,6 @@ export default {
 
 .popup-bg.popup-show {
   top: 0;
-  opacity: 1;
+  left: 0;
 }
 </style>

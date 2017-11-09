@@ -1,8 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const notFound = require('./middlewares/notFound')
-const simpleLogger = require('./middlewares/simpleLogger')
+var express = require('express')
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var notFound = require('./middlewares/notFound')
+var simpleLogger = require('./middlewares/simpleLogger')
 
 var app = express()
 app.use(bodyParser.json())
