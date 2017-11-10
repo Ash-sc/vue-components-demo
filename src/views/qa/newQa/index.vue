@@ -214,10 +214,16 @@ export default {
     },
 
     submitQuestion: function() {
+      let errorInfo = ''
       if (!this.secondC) {
+        errorInfo = '问题分类至少需要二级'
+      } else if (!this.questionName || !this.questionAnswer) {
+        errorInfo = '问题名称和答案必须填写'
+      }
+      if (errorInfo) {
         return this.$store.dispatch('newNotification', {
           type: 'error',
-          content: '问题分类至少需要二级'
+          content: errorInfo
         })
       }
 
@@ -233,6 +239,11 @@ export default {
           content: '新增常见问题成功'
         })
         this.$router.push('/qa-management/qa-management-list')
+      }, (err) => {
+        this.$store.dispatch('newNotification', {
+          type: 'success',
+          content: err.errMsg || '新增常见问题失败'
+        })
       })
     }
   },
