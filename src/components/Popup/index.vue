@@ -112,5 +112,6 @@ export default {
 .popup-bg.popup-show {
   top: 0;
   left: 0;
+  opacity: 1;
 }
 </style>

@@ -24,9 +24,10 @@ const xhr = ({ method = 'get', url, body = null }) => {
       if (!data.success) {
         return reject(data)
       }
-      resolve(data.data)
+      resolve(data.data || {})
     }).catch(err => {
       console.log('request error: %s', err)
+      reject('req error')
     })
   })
 

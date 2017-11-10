@@ -26,12 +26,13 @@ class AccountService {
 
   /**
    * 新增常见问题分类
+   * @param  {String} data.type
    * @param  {Number} data.id
-   * @param  {String} data.name
    * @param  {String} data.label
+   * @param  {String} data.pathName
    * @return {Object} common response
    */
-  newqQaCategory (data) {
+  newQaCategory (data) {
     return xhr({
       method: 'post',
       url: '/qa/newQaCategory',
@@ -42,21 +43,25 @@ class AccountService {
   /**
    * 新增常见问题归属
    * @param  {Number} data.id
-   * @param  {String} data.name
+   * @param  {String} data.label
    * @return {Object} common response
    */
   newQaKind (data) {
     return xhr({
       method: 'post',
       url: '/qa/newQaKind',
-      body: data
+      body: {
+        id: data.id,
+        label: data.label
+      }
     })
   }
 
   /**
    * 新增常见问题
-   * @param  {Number} data.categoryId
-   * @param  {String} data.kindName
+   * @param  {Number} data.id
+   * @param  {Number} data.path
+   * @param  {String} data.kind
    * @param  {String} data.question
    * @param  {String} data.answer
    * @return {Object} common response

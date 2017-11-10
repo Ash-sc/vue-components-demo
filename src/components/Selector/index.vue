@@ -74,6 +74,8 @@ export default {
     display: inline-block;
     position: relative;
     width: 200px;
+    height: 30px;
+    line-height: 30px;
     
     .selector-input {
       height: 30px;

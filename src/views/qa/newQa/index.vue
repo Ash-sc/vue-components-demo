@@ -20,6 +20,7 @@
             :val="secondC"
             :opts="{ needEmpty: true, emptyLabel: '请选择二级分类' }"
           >
+            <li v-if="firstC" @click="newCategoryOrKind('secondC')">+ 新增二级分类</li>
           </selector>
           <selector
             :data-list="thirdCList"
@@ -27,7 +28,7 @@
             :val="thirdC"
             :opts="{ needEmpty: true, emptyLabel: '请选择三级分类' }"
           >
-            <li v-if="secondC" @click="newCategoryOrKind('category')">+ 新增三级分类</li>
+            <li v-if="secondC" @click="newCategoryOrKind('thirdC')">+ 新增三级分类</li>
           </selector>
         </div>
 
@@ -143,7 +144,18 @@ export default {
     },
 
     questionCategory() {
-      return this.thirdC || this.secondC || this.firstC
+      const level = this.thirdC ? 'third' : (this.secondC ? 'second' : 'first')
+      let path = `/${find(this.qaOptionsData, { id: this.firstC }).pathName}`
+      if (level !== 'first') {
+        path += `/${find(this.secondCList, { id: this.secondC }).pathName}`
+        if (level !== 'second') {
+          path += `/${find(this.thirdCList, { id: this.thirdC }).pathName}`
+        }
+      }
+      return {
+        id: this.thirdC || this.secondC || this.firstC,
+        path
+      }
     },
 
     kindData() {
@@ -194,19 +206,33 @@ export default {
         type
       }
       if (type === 'kind') {
-        categoryOrKindOpts.id = this.questionCategory
+        categoryOrKindOpts.id = this.questionCategory.id
       } else {
-        categoryOrKindOpts.id = this.secondC
+        categoryOrKindOpts.id = type === 'secondC' ? this.firstC : this.secondC
       }
       this.categoryOrKindOpts = categoryOrKindOpts
     },
 
     submitQuestion: function() {
-      console.log({
-        category: this.questionCategory,
+      if (!this.secondC) {
+        return this.$store.dispatch('newNotification', {
+          type: 'error',
+          content: '问题分类至少需要二级'
+        })
+      }
+
+      this.$store.dispatch(types.NEW_QA, {
+        ...this.questionCategory,
         kind: this.questionKind,
-        name: this.questionName,
+        question: this.questionName,
         answer: this.questionAnswer
+      })
+      .then(() => {
+        this.$store.dispatch('newNotification', {
+          type: 'success',
+          content: '新增常见问题成功'
+        })
+        this.$router.push('/qa-management/qa-management-list')
       })
     }
   },
