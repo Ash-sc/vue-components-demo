@@ -1,5 +1,5 @@
-# Vue项目模板
-vue2.x项目模板，使用webpack编译
+# Vue项目
+vue2.x项目，使用webpack编译
 
 
 # 安装与使用
@@ -27,7 +27,7 @@ project
 │
 └───src // source文件夹，主要代码
 │   │   index.html // html入口
-│   │   app.js // js入口 
+│   │   app.js // js入口
 │   └───assets // css、font、image等
 │   └───components // 公共组件
 │   └───filter // 过滤器
