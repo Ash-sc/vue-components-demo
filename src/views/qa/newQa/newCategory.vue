@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-body">
+  <div>
     <div class="modal-header">
       <h3 class="title">新增{{ opts.type === 'kind' ? '归属' : '分类' }}</h3>
       <i class="fa fa-times" @click="hide"></i>

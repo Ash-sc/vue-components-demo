@@ -66,9 +66,9 @@
       </div>
     </div>
 
-    <popup ref="categoryDialog">
+    <vue-popup ref="categoryDialog">
       <new-category :opts="categoryOrKindOpts"></new-category>
-    </popup>
+    </vue-popup>
 
   </div>
 </template>
@@ -78,7 +78,6 @@ import { mapGetters } from 'vuex'
 import find from 'lodash/find'
 import Selector from '@/components/Selector/'
 import VueHtml5Editor from 'vue-html5-editor'
-import Popup from '@/components/Popup/'
 import NewCategory from './newCategory'
 import * as types from '@/store/types/qaManagementTypes'
 
@@ -111,7 +110,7 @@ Vue.use(VueHtml5Editor, {
 
 export default {
 
-  components: { Selector, Popup, NewCategory },
+  components: { Selector, NewCategory },
 
 
   data: () => ({
@@ -181,7 +180,7 @@ export default {
       this.thirdC = ''
       this.questionKind = ''
     },
-     
+
     thirdC: function() {
       this.questionKind = ''
     }

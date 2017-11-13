@@ -6,6 +6,7 @@ import router from '@/routes/'
 import App from '@/components/App'
 import store from './store'
 import jnat from 'jnat-get-ui-vue'
+import Popup from 'vue-test-popup'
 import 'jnat-get-ui-core/dist/theme/default.css'
 import 'jnat-get-ui-core/dist/show/css/show.css'
 import 'jnat-get-ui-core/dist/show/css/layout.css'
@@ -19,6 +20,7 @@ new Vue({
   render: h => h(App)
 })
 Vue.use(jnat)
+Vue.use(Popup)
 
 if (__DEV__) {
   console.info('[当前环境] 开发环境')
