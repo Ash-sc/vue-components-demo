@@ -3,7 +3,7 @@ var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
-  password: '54haotiange',
+  password: '54haotiangeA!',
   database: 'doc_center'
 })
 

@@ -18,7 +18,9 @@ app.use(function(req, res, next) {
 app.use(simpleLogger)
 
 const qaManagementCtrl = require('./controllers/qaManagementCtrl')
+const docManagementCtrl = require('./controllers/docManagementCtrl')
 app.use('/qa/', qaManagementCtrl)
+app.use('/doc/', docManagementCtrl)
 
 app.use(notFound)
 
