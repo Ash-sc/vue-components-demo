@@ -21,6 +21,7 @@ export default {
   /* 公共样式  */
   body {
     font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC','Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
   }
 
   /* 全局通用的 router-view 过渡效果 */
