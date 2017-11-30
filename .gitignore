@@ -1,6 +1,7 @@
 db.json
 .DS_Store
 .idea/
+.vscode/
 *.log
 coverage
 node_modules
