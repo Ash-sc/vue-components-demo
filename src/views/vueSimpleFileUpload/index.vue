@@ -1,7 +1,7 @@
 <template>
   <div class="file-upload-section">
     <h3>Vue Simple Upload</h3>
-    <vue-simple-upload :options="options" v-on:progress-update="progressUpdate">
+    <vue-simple-upload :options="options" v-on:progress-update="progressUpdate" ref="fileUploadComp">
     </vue-simple-upload>
     <br>
     <div class="upload-file-info-section" v-show="fileInfoList.length > 0">
