@@ -18,7 +18,7 @@ router.post('/upload', function(req, res) {
       })
       setTimeout(function() {
         fs.unlinkSync(files.file.path)
-      }, 1000 * 60 * 60)
+      }, 1000 * 10)
     } else {
       res.status(200).json({
         result: 1,
