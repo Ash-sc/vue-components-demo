@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var path = require('path')
+var fs = require('fs')
 var formidable = require('formidable')
 
 router.post('/upload', function(req, res) {
@@ -13,8 +14,11 @@ router.post('/upload', function(req, res) {
     if (!err) {
       res.status(200).json({
         result: 0,
-        url: '/static/' + files.file.path.split('/').slice(-1).join()
+        url: '/uploaded-file/' + files.file.path.split('/').slice(-1).join()
       })
+      setTimeout(function() {
+        fs.unlinkSync(files.file.path)
+      }, 1000 * 60 * 60)
     } else {
       res.status(200).json({
         result: 1,
