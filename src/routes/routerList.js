@@ -25,6 +25,13 @@ export default [
         component (resolve) {
           require(['@/views/vueSimpleFileUpload/'], resolve)
         }
+      },
+      {
+        path: '/vue-simple-notification',
+        name: 'vue-simple-notification',
+        component (resolve) {
+          require(['@/views/vueSimpleNotification/'], resolve)
+        }
       }
     ]
   }

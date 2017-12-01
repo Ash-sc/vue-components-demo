@@ -8,7 +8,7 @@
       <h4 class="section-title">Files selected</h4>
       <div class="file-info-item" v-for="(fileInfo, index) in fileInfoList" :key="index">
         <div class="progress-info">
-          <span class="file-name">{{ fileInfo.fileName }}</span>
+          <span class="file-name txt-ellipsis">{{ fileInfo.fileName }}</span>
           <span class="file-size">{{ parseInt(fileInfo.fileInfo.size / 1000, 10) }}kb</span>
           <span class="file-progress">{{ fileInfo.progress }}</span>
           <span class="operate">
@@ -148,6 +148,7 @@ export default {
     display: inline-block;
     width: 100px;
     vertical-align: top;
+    font-size: 14px;
   }
 
   .operate {
@@ -160,6 +161,22 @@ export default {
       line-height: 20px;
       margin-top: 12px;
       text-align: center;
+    }
+
+    .fa-arrow-up, .fa-trash {
+      cursor: pointer;
+    }
+
+    .fa-check {
+      color: #26ad58;
+    }
+
+    .fa-times {
+      color: #ff4848;
+    }
+
+    .fa-trash {
+      color: #00a4ff;
     }
   }
 }

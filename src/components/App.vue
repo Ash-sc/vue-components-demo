@@ -2,26 +2,18 @@
   <router-view transition="fade" transition-mode="out-in"></router-view>
 </template>
 <script>
-/* 根组件就像是 AngularJS 的 $rootScope，同时也负责全局布局 */
 
 export default {
-  // 路由会自动将该组件挂载到 #app 上
-  // el: () => '#app',
-
-  // created: function() {
-  //   this.$store.dispatch('newNotification', {
-  //     type: 'success',
-  //     content: 'Welcome !!!'
-  //   })
-  // }
 }
 </script>
 
 <style lang="scss">
   /* 公共样式  */
   body {
+    margin: 0;
     font-size: 16px;
     font-family: 'Helvetica Neue', Helvetica, 'PingFang SC','Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
+    color: #343434;
   }
 
   /* 全局通用的 router-view 过渡效果 */
