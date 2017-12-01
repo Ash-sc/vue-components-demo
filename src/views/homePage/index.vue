@@ -30,6 +30,11 @@ export default {
         name: 'vue-simple-file-upload',
         imgPath: 'http://web-site-files.ashshen.cc/vue-components-demo/vue-simple-file-upload.gif',
         support: 'Multiple file, upload progress, upload speed, abort'
+      },
+      {
+        name: 'vue-simple-notification',
+        imgPath: 'http://web-site-files.ashshen.cc/vue-components-demo/vue-simple-notification.gif',
+        support: 'Notification position, duration, animation'
       }
     ]
   }),

@@ -28,7 +28,7 @@ export default {
     Message.config({
       position: 'top-right',
       bubbling: 'up',
-      duration: 5,
+      duration: 3,
       closeBtn: true
     })
   }
