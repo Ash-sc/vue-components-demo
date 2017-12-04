@@ -10,6 +10,7 @@
 
 <script>
 import Message from 'vue-simple-notification'
+import 'vue-simple-notification/dist/style.css'
 
 export default {
   methods: {
@@ -40,5 +41,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.notification-bg {
+  text-align: left;
 }
 </style>
