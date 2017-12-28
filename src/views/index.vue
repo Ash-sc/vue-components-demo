@@ -9,8 +9,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding-top: 60px;
+  background-image: url('../images/background.png');
+  background-color: #2d2837;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1, h2 {

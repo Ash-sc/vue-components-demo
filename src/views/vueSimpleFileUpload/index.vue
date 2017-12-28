@@ -1,10 +1,43 @@
 <template>
   <div class="file-upload-section">
     <h3>Vue Simple Upload</h3>
+    <div class="options-section">
+      <span>Options:</span>
+      <br>
+      <span>Accept:</span>
+      <label>
+        <input type="radio" name="accept" v-model="options.accept" value="*" />
+        All
+      </label>
+      <label>
+        <input type="radio" name="accept" v-model="options.accept" value="image/jeg,image/png" />
+        JPEG or PNG
+      </label>
+      <br>
+      <span>Multiple:</span>
+      <label>
+        <input type="radio" name="multiple" v-model="options.multiple" :value="true" />
+        True
+      </label>
+      <label>
+        <input type="radio" name="multiple" v-model="options.multiple" :value="false" />
+        False
+      </label>
+      <br>
+      <span>AutoStart:</span>
+      <label>
+        <input type="radio" name="autoStart" v-model="options.autoStart" :value="true" />
+        True
+      </label>
+      <label>
+        <input type="radio" name="autoStart" v-model="options.autoStart" :value="false" />
+        False
+      </label>
+    </div>
     <vue-simple-upload :options="options" v-on:progress-update="progressUpdate" ref="fileUploadComp">
     </vue-simple-upload>
     <br>
-    <div class="upload-file-info-section" v-show="fileInfoList.length > 0">
+    <div class="upload-file-info-section">
       <h4 class="section-title">Files selected</h4>
       <div class="file-info-item" v-for="(fileInfo, index) in fileInfoList" :key="index">
         <div class="progress-info">
@@ -12,7 +45,7 @@
           <span class="file-size">{{ parseInt(fileInfo.fileInfo.size / 1000, 10) }}kb</span>
           <span class="file-progress">{{ fileInfo.progress }}</span>
           <span class="operate">
-            <i class="fa fa-arrow-up fl-l" v-if="fileInfo.type === 'waiting'"></i>
+            <i class="fa fa-arrow-up fl-l" v-if="fileInfo.type === 'waiting'" @click="startUpload(fileInfo.id)"></i>
             <i class="fa fa-check fl-r" v-if="fileInfo.type === 'success'"></i>
             <i class="fa fa-times fl-r" v-if="fileInfo.type === 'fail' || fileInfo.type === 'abort'"></i>
             <i class="fa fa-trash fl-r" v-if="fileInfo.type === 'uploading'" @click="abortUpload(fileInfo.id)"></i>
@@ -42,7 +75,8 @@ export default {
         btnContent: 'Choose File',
         url: '/api/files/upload',
         accept: '*',
-        multiple: true
+        multiple: true,
+        autoStart: true
       },
       imageUrl: '',
       fileInfoList: []
@@ -51,16 +85,15 @@ export default {
 
   methods: {
     progressUpdate(fileInfoList) {
-      // console.log('upload speed（kb/s）：', fileInfoList[0].uploadSpeed)
-      // if (fileInfoList[0].type === 'success') {
-      //   this.imageUrl = JSON.parse(fileInfoList[0].response).url
-      // }
-      // console.log(fileInfoList[0].type)
       this.fileInfoList = fileInfoList
     },
 
     abortUpload(id) {
       this.$refs.fileUploadComp.abort(id)
+    },
+
+    startUpload(id) {
+      this.$refs.fileUploadComp.startUpload(id)
     }
   }
 }
@@ -71,10 +104,39 @@ export default {
   text-align: center;
   margin-top: 80px;
 
-  .image-show-section {
-    max-width: 650px;
-    max-height: 400px;
-    border-radius: 5px;
+  > h3 {
+    color: #fff;
+    font-size: 22px;
+  }
+
+  .options-section {
+    position: fixed;
+    color: #fff;
+    top: 140px;
+    left: 20px;
+    text-align: left;
+    line-height: 30px;
+
+    span, label {
+      margin-right: 20px;
+      display: inline-block;
+      min-width: 75px;
+    }
+  }
+
+  .file-upload-body .btn-solid {
+    width: 90px;
+    outline: none;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .file-upload-body .btn-solid:hover {
+    background-color: #00a4ff;
+    color: #fff;
   }
 }
 .fl-l {
@@ -90,6 +152,9 @@ export default {
   display: inline-block;
   margin-top: 40px;
   border: 1px solid #ddd;
+  height: 400px;
+  background-color: #fff;
+  overflow-y: auto;
 
   .section-title {
     margin: 0;
@@ -98,6 +163,7 @@ export default {
     line-height: 40px;
     text-indent: 20px;
     border-bottom: 1px solid #ddd;
+    background-color: #fff;
   }
 
   .file-info-item {
@@ -133,7 +199,7 @@ export default {
       background-color: #fff6e5;
     }
 
-    &.error {
+    &.fail {
       background-color: #ffe5ea;
     }
   }

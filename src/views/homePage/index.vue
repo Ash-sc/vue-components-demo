@@ -17,7 +17,6 @@
         <div class="component-item"></div>
         <div class="component-item"></div>
         <div class="component-item"></div>
-        <div class="component-item"></div>
       </div>
     </div>
   </div>
@@ -50,6 +49,10 @@ export default {
 .home-page-bg {
   min-height: 100vh;
   overflow: auto;
+  background-image: url('../../images/background.png');
+  background-color: #2d2837;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .home-page-section {
   width: 1000px;
@@ -62,6 +65,7 @@ export default {
     border-bottom: 5px solid #ace9ff;
     font-size: 25px;
     text-align: center;
+    color: #fff;
   }
 
   .demo-link-section {
@@ -74,7 +78,7 @@ export default {
       height: 220px;
       font-size: 0.8rem;
       margin-bottom: 50px;
-      background-color: #f8f8f8;
+      background-color: #524054;
       padding: 4px;
     }
 
@@ -83,7 +87,7 @@ export default {
     }
 
     .component-item:hover {
-      box-shadow: 0px 0px 10px #bcbcbc;
+      box-shadow: 0px 0px 10px #0c0c0c;
       cursor: pointer;
     }
 
@@ -100,6 +104,7 @@ export default {
       margin-top: 4px;
       font-size: 12px;
       text-indent: 2px;
+      color: #e4e4e4;
     }
 
     .component-name {
