@@ -73,7 +73,7 @@ export default {
       options: {
         className: 'btn-solid',
         btnContent: 'Choose File',
-        url: '/api/files/upload',
+        url: '/vue-demo-api/files/upload',
         accept: '*',
         multiple: true,
         autoStart: true

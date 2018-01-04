@@ -10,7 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   padding-top: 60px;
-  background-image: url('../images/background.png');
+  background-image: url('http://olo3fohgk.bkt.clouddn.com/background.png');
   background-color: #2d2837;
   background-repeat: no-repeat;
   background-size: cover;

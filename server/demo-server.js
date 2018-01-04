@@ -7,7 +7,7 @@ var path = require('path')
 
 var app = express()
 
-app.use('/uploaded-file/', express.static(path.resolve(__dirname, './static')))
+app.use('/static/', express.static(path.resolve(__dirname, '../dist')))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
