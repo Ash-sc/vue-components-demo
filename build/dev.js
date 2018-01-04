@@ -14,12 +14,12 @@ app.use('/static', express.static(PATHS.STATIC));
 // node server
 // require(PATHS.SERVER.join('node-app')).listen(PORTS.NODE_SERVER);
 
-app.use('/api', proxy({
+app.use('/vue-demo-api', proxy({
   target: 'http://127.0.0.1:' + PORTS.NODE_SERVER,
   changeOrigin: true,
   pathRewrite: {
     // 重写 URL：[Dev Server]/api/xxx <=> [Node Server]/xxx
-    '^/api': '/'
+    '^/vue-demo-api': '/'
   }
 }));
 
