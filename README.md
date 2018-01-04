@@ -3,4 +3,4 @@
 > vue组件demo
 
 
-> 访问地址[http://ashshen.cc:6655/](http://ashshen.cc:6655/)
+> 访问地址[http://demo.2017017.xyz/vue-demo](http://demo.2017017.xyz/vue-demo)
