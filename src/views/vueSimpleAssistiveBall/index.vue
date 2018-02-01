@@ -37,7 +37,6 @@ export default {
 <style lang="scss">
 .page-section {
   text-align: center;
-  height: 100vh;
 
   > h3 {
     color: #fff;
