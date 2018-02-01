@@ -34,11 +34,6 @@ export default {
         name: 'vue-simple-notification',
         imgPath: 'http://web-site-files.ashshen.cc/vue-components-demo/vue-simple-notification.gif',
         support: 'Notification position, duration, animation'
-      },
-      {
-        name: 'vue-simple-assistive-ball',
-        imgPath: 'http://web-site-files.ashshen.cc/vue-components-demo/vue-simple-assistive-ball.gif',
-        support: 'Assistive ball for WebApp'
       }
     ]
   }),
