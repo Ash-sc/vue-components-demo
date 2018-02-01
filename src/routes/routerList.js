@@ -32,6 +32,13 @@ export default [
         component (resolve) {
           require(['@/views/vueSimpleNotification/'], resolve)
         }
+      },
+      {
+        path: '/vue-simple-assistive-ball',
+        name: 'vue-simple-assistive-ball',
+        component (resolve) {
+          require(['@/views/vueSimpleAssistiveBall/'], resolve)
+        }
       }
     ]
   }
