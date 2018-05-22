@@ -33,8 +33,16 @@
         <input type="radio" name="autoStart" v-model="options.autoStart" :value="false" />
         False
       </label>
+      <br>
+      <span>limited size: (byte)</span>
+      <input type="number" v-model="maxSize" maxlength="90" class="file-size-input">
     </div>
-    <vue-simple-upload :options="options" v-on:progress-update="progressUpdate" ref="fileUploadComp">
+    <vue-simple-upload
+      :options="options"
+      @progress-update="progressUpdate"
+      @file-size-error="fileSizeError"
+      ref="fileUploadComp"
+    >
     </vue-simple-upload>
     <br>
     <div class="upload-file-info-section">
@@ -64,6 +72,8 @@
 <script>
 import VueSimpleUpload from 'vue-simple-file-upload'
 import Vue from 'vue/dist/vue.js'
+import Message from 'vue-simple-notification'
+import 'vue-simple-notification/dist/style.css'
 
 Vue.use(VueSimpleUpload)
 
@@ -76,14 +86,28 @@ export default {
         url: '/vue-demo-api/files/upload',
         accept: '*',
         multiple: true,
-        autoStart: true
+        autoStart: true,
+        size: 0
       },
       imageUrl: '',
-      fileInfoList: []
+      fileInfoList: [],
+      maxSize: 0
+    }
+  },
+
+  watch: {
+    maxSize: function(val) {
+      if (val !== undefined) {
+        this.options.size = parseInt(val, 10) || 0
+      }
     }
   },
 
   methods: {
+    fileSizeError(files) {
+      Message.error(`Files blow are too large : ${files.join(',')}`)
+    },
+
     progressUpdate(fileInfoList) {
       this.fileInfoList = fileInfoList
     },
@@ -95,6 +119,15 @@ export default {
     startUpload(id) {
       this.$refs.fileUploadComp.startUpload(id)
     }
+  },
+
+  created: function() {
+    Message.config({
+      position: 'top-right',
+      bubbling: 'up',
+      duration: 3,
+      closeBtn: true
+    })
   }
 }
 </script>
@@ -117,10 +150,22 @@ export default {
     text-align: left;
     line-height: 30px;
 
-    span, label {
+    span,
+    label {
       margin-right: 20px;
       display: inline-block;
       min-width: 75px;
+    }
+
+    .file-size-input {
+      width: 90px;
+      outline: none;
+      height: 25px;
+      background-color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0 5px;
     }
   }
 
@@ -210,7 +255,9 @@ export default {
     padding-left: 20px;
   }
 
-  .file-size, .file-progress, .operate {
+  .file-size,
+  .file-progress,
+  .operate {
     display: inline-block;
     width: 100px;
     vertical-align: top;
@@ -229,7 +276,8 @@ export default {
       text-align: center;
     }
 
-    .fa-arrow-up, .fa-trash {
+    .fa-arrow-up,
+    .fa-trash {
       cursor: pointer;
     }
 
