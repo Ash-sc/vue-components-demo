@@ -13,7 +13,7 @@
     "url": "https://github.com/Ash-sc/vue-components-demo.git"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "es6-shim": "^0.35.2",
