@@ -50,7 +50,7 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
     "fs-extra": "^2.1.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-csso": "^2.0.0",
     "gulp-filter": "^4.0.0",
     "gulp-rev": "^7.1.2",
